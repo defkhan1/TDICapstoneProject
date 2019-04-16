@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Completed milestone project for TDI">
+
+    <title>Fast Food Chain Popularity Ranker</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12 text-left">
+          <h2>Fast Food Chain Popularity Ranker</h2>
+          <h3>This ranks fast food chains based on their social media popularity!</h3>
+          <!-- <h4>Chain: {{ chain }}, TAC: {{ tac }}</h4> -->
+          {% for table in tables %}
+            {{ table|safe }}
+          {% endfor %}
+                    <!-- <h4>
+            <form id='inputform' method='post' action='graph' >
+              <p>
+                Ticker: <input type='text' name='tickerInput' placeholder='GOOG' />
+              </p>
+              <p>
+                Year: <input type='text' name='yearInput' placeholder='2017' />
+              </p>
+              <p>
+                <input type="radio" name='priceInput' value='close' align='left' checked='yes' /> Closing price<br>
+                <input type="radio" name='priceInput' value='adj_close' align='left' /> Adjusted closing price<br>
+                <input type="radio" name='priceInput' value='open' align='left' /> Opening price<br>
+                <input type="radio" name='priceInput' value='adj_open' align='left' /> Adjusted opening price<br>
+                <input type="radio" name='priceInput' value='high' align='left' /> Daily high<br>
+                <input type="radio" name='priceInput' value='low' align='left' /> Daily low<br>
+              </p>
+              <p>
+                <input type='submit' value='Go!' />
+              </p>
+            </form>
+          </h4> -->
+          <h4>
+            <form id='inputform' method='post' action='graph' >
+              <p>
+                Chain: <input type='text' name='nameInput' placeholder='chipotle' />
+              </p>
+              <p>
+                <input type='submit' value='Go!' />
+              </p>
+            </form>
+          </h4>
+        </div>
+      </div>
+    </div>
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  </body>
+</html>
