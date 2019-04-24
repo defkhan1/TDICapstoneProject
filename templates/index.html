@@ -3,61 +3,169 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Completed milestone project for TDI">
-
+    <meta name="description" content="TDI Capstone Project">
+    {{ script | safe }}
+    {{ script_pie | safe }}
     <title>Fast Food Chain Popularity Ranker</title>
 
     <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.3.1/lux/bootstrap.min.css">
+    <link rel="stylesheet" href="//cdn.pydata.org/bokeh/release/bokeh-0.12.16.min.css" type="text/css" />
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link href="https://cdn.pydata.org/bokeh/release/bokeh-widgets-0.12.16.min.css" rel="stylesheet" type="text/css">
+    <link href="https://cdn.pydata.org/bokeh/release/bokeh-tables-0.12.16.min.css" rel="stylesheet" type="text/css">
   </head>
   <body>
+<!--     <div class="container">
+      <div class="jumbotron">
+        <h1 class="display-4">Fast Food Chain Popularity Ranker</h1>
+        <p class="lead">This app ranks fast food chains based on their social media popularity!</p>
+        <hr class="my-4">
+        <p>We use Facebook's "talking about" metric to rank the popularity of chains each week.</p>
+      </div>
+    </div> -->
+
+    <div class="jumbotron">
+      <h1 class="display-4">Fast Food Chain Popularity Ranker</h1>
+      <p class="lead">This app ranks fast food chains based on their social media popularity!</p>
+      <hr class="my-4">
+      <p>We use Facebook's "talking about" metric to rank the popularity of chains each week.</p>
+    </div>
+
+
     <div class="container">
       <div class="row">
-        <div class="col-lg-12 text-left">
-          <h2>Fast Food Chain Popularity Ranker</h2>
-          <h3>This ranks fast food chains based on their social media popularity!</h3>
-          <!-- <h4>Chain: {{ chain }}, TAC: {{ tac }}</h4> -->
-          {% for table in tables %}
-            {{ table|safe }}
-          {% endfor %}
-                    <!-- <h4>
-            <form id='inputform' method='post' action='graph' >
-              <p>
-                Ticker: <input type='text' name='tickerInput' placeholder='GOOG' />
-              </p>
-              <p>
-                Year: <input type='text' name='yearInput' placeholder='2017' />
-              </p>
-              <p>
-                <input type="radio" name='priceInput' value='close' align='left' checked='yes' /> Closing price<br>
-                <input type="radio" name='priceInput' value='adj_close' align='left' /> Adjusted closing price<br>
-                <input type="radio" name='priceInput' value='open' align='left' /> Opening price<br>
-                <input type="radio" name='priceInput' value='adj_open' align='left' /> Adjusted opening price<br>
-                <input type="radio" name='priceInput' value='high' align='left' /> Daily high<br>
-                <input type="radio" name='priceInput' value='low' align='left' /> Daily low<br>
-              </p>
-              <p>
-                <input type='submit' value='Go!' />
-              </p>
-            </form>
-          </h4> -->
-          <h4>
+        <div class="col-lg-6">
+          <form id='inputform2' method='post' action='rank' >
+            <div class="form-group">
+              <label class="col-form-label" for="inputDefault">Compare the most recent ranking to weekly historical data</label>
+              <select name = "weekList" class="custom-select">
+                <option selected="">Select a week</option>
+                {% for week in weekList %}
+                  <option value="{{week}}">{{week}}</option>
+                {% endfor %}
+              </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+        </div>
+        <div class="col-lg-6">
+          <form id='inputform' method='post' action='graph' >
+            <div class="form-group">
+              <label class="col-form-label" for="inputDefault">Input the name of a chain to see its historical data</label>
+              <input type="text" class="form-control" name='nameInput' placeholder="chipotle" id="inputDefault">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+<!--           <h4>
             <form id='inputform' method='post' action='graph' >
               <p>
                 Chain: <input type='text' name='nameInput' placeholder='chipotle' />
               </p>
               <p>
-                <input type='submit' value='Go!' />
+                <button type="submit" class="btn btn-primary">Submit</button>
               </p>
             </form>
-          </h4>
+          </h4> -->
+
+
+<!--     <div class="col-lg-4">
+      <form id='inputform2' method='post' action='rank' >
+        <div class="form-group">
+          <select name = "weekList" class="custom-select">
+            <option selected="">Select a week to compare to today</option>
+            {% for week in weekList %}
+              <option value="{{week}}">{{week}}</option>
+            {% endfor %}
+          </select>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="col-lg-6 offset-lg-1">
+      <h4>
+        <form id='inputform' method='post' action='graph' >
+          <p>
+            Chain: <input type='text' name='nameInput' placeholder='chipotle' />
+          </p>
+          <p>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </p>
+        </form>
+      </h4>
+    </div> -->
+
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-24 text-left">
+          <div style="width: 100%; overflow: hidden;">
+            <div style="width: 200px; float: left;"> {{ div | safe }} </div>
+            <div style="margin-left: 584px;">
+              <br>
+              <ul class="list-group">
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  Current Leader
+                  <span class="badge badge-primary badge-pill">{{curleader}}</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  All-Time Leader
+                  <span class="badge badge-primary badge-pill">{{allleader}}</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  Longest Streak as Leader
+                  <span class="badge badge-primary badge-pill">{{smax}}: {{jmax}} Weeks</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  Highest Weekly Count
+                  <span class="badge badge-primary badge-pill">{{maxname}}: {{maxcount}} on {{maxtime}}</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  Date Last Updated
+                  <span class="badge badge-primary badge-pill">{{time}}</span>
+                </li>
+              </ul>
+              <br>
+              <br>
+            </div>
+            <div style="margin-left: 584px;"> {{ div_pie | safe }} </div>
+          </div>
         </div>
       </div>
     </div>
+
+<!--     <footer class="footer">
+      <div class="w3-container w3-light-grey">
+        <span class="text-muted">How does it work? "People talking about this" is a metric Facebook uses to determine how popular a Facebook page is. The more users that like, comment on, or mention a Facebook page, the higher their "talking about" count. We collect data on "talking about" for major fast food chains over several years and use it as a metric for the popularity of a given chain.</span>
+      </div>
+    </footer> -->
+
+    <div class="w3-container w3-light-grey">
+      <h4>How does it work?</h4>
+      <p><span class="text-muted">"People talking about this" is a metric Facebook uses to determine how popular a Facebook page is. The more users that like, comment on, or mention a Facebook page, the higher their "talking about" count. We collect data on "talking about" count for major fast food chains over several years and use it as a metric for the popularity of a given chain.</span></p>
+    </div>
+
+<!--     <div class="container">
+      <div class="row">
+        <div class="col-lg-6 text-left">
+          {{ div | safe }}
+        </div>
+        <div class="col-lg-6 text-left">
+          {{ div_pie | safe }}
+        </div>
+      </div>
+    </div> -->
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
+    <script type="text/javascript" src="//cdn.pydata.org/bokeh/release/bokeh-0.12.16.min.js"></script>
+    <script src="https://cdn.pydata.org/bokeh/release/bokeh-widgets-0.12.16.min.js"></script>
+    <script src="https://cdn.pydata.org/bokeh/release/bokeh-tables-0.12.16.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
   </body>
 </html>

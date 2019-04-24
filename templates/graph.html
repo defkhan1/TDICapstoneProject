@@ -5,16 +5,51 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Graph page!">
     {{ script | safe }}
-    <title>We did it!</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <title>Fast Food Chain Popularity Ranker</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.3.1/lux/bootstrap.min.css">
     <link rel="stylesheet" href="//cdn.pydata.org/bokeh/release/bokeh-0.12.16.min.css" type="text/css" />
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   </head>
   <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+      <a class="navbar-brand" href="/">Fast Food Chain Ranker</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarColor01">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="https://www.hasan-khan.com/">Hasan's Website</a>
+          </li>
+        </ul>
+        <form id='inputform' method='post' action='graph' class="form-inline my-2 my-lg-0">
+          <input class="form-control mr-sm-2" name="nameInput" type="text" placeholder="Search for a chain">
+          <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+        </form>
+      </div>
+    </nav>
     <div class="container">
       <div class="row">
         <div class="col-lg-12 text-left">
-          <h2>Success!</h2>
-          {{ div | safe }}
+          <h2>Historical data for {{ realrealname }}</h2>
+          <div style="width: 100%; overflow: hidden;">
+            <div style="width: 800px; float: left;"> {{ div | safe }} </div>
+            <div style="margin-left: 300px;"> 
+              <a class="twitter-timeline"
+                href="https://twitter.com/{{realname}}"
+                data-width="300"
+                data-height="300">
+                <!-- data-tweet-limit="5"> -->
+                Latest tweet by @twittername</a>
+            </div>
+            <div style="margin-left: 300px;"> 
+              <iframe scrolling="yes" src="http://www.facebook.com/plugins/likebox.php?href=http%3A%2F%2Fwww.facebook.com%2F{{realname}}&width=300&height=300&stream=true&header=true" style="border:none; overflow:hidden; width:300px; height:300px; float:left;"></iframe>
+            </div>
+          </div>
           <!-- <h4>
             <form id='inputform2' method='post' action='/' >
               <p>
@@ -25,8 +60,16 @@
         </div>
       </div>
     </div>
+
+    <div class="w3-container w3-light-grey">
+      <h4>How does it work?</h4>
+      <p><span class="text-muted">"People talking about this" is a metric Facebook uses to determine how popular a Facebook page is. The more users that like, comment on, or mention a Facebook page, the higher their "talking about" count. We collect data on "talking about" count for major fast food chains over several years and use it as a metric for the popularity of a given chain.</span></p>
+    </div>
+    <!-- <iframe scrolling="yes" src="http://www.facebook.com/plugins/likebox.php?href=http%3A%2F%2Fwww.facebook.com%2F"{{name}}"&width=500&height=600&stream=true&header=true" style="border:none; overflow:hidden; width:500px; height:600px; float:left;"></iframe> -->
+
+    <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
     <script type="text/javascript" src="//cdn.pydata.org/bokeh/release/bokeh-0.12.16.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
   </body>
 </html>
